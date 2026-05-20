@@ -227,7 +227,7 @@ footer a:hover{text-decoration:underline;}
     <h1 class="hero-title">ELITE <span class="gold">SQ10</span></h1>
     <div class="hero-sub" id="hero-sub-curso">Soldado PMES · O curso que <b>comprovadamente</b> mais aprova.</div>
     <p class="hero-claim" id="hero-claim">
-      <span class="big" id="hero-num">247</span> alunos da SQ10 entre os convocados pela PMES nas três turmas de Soldado.
+      <span class="big" id="hero-num">282</span> alunos da SQ10 entre os convocados pela PMES nas três turmas de Soldado.
     </p>
     <div class="hero-turmas" id="hero-turmas"></div>
   </div>
@@ -241,12 +241,12 @@ footer a:hover{text-decoration:underline;}
       <div class="cmp-card active" data-curso="soldado">
         <div class="cmp-curso">Soldado · CFSd</div>
         <div class="cmp-nome">PMES 2022</div>
-        <div class="cmp-total">252<span class="pct">convocados</span></div>
+        <div class="cmp-total">282<span class="pct">convocados</span></div>
         <div class="cmp-flag">Maior preparatório regional</div>
         <div class="cmp-stack">
-          <span><b>146</b>1ª turma · 2023</span>
-          <span><b>78</b>2ª turma · 2024</span>
-          <span><b>28</b>3ª turma · 2025</span>
+          <span><b>163</b>1ª turma · 2023</span>
+          <span><b>87</b>2ª turma · 2024</span>
+          <span><b>32</b>3ª turma · 2025</span>
         </div>
       </div>
       <div class="cmp-card" data-curso="oficial">
@@ -285,7 +285,7 @@ footer a:hover{text-decoration:underline;}
   <div class="list-inner">
     <div class="list-head">
       <div class="list-eb">Lista nominal</div>
-      <h2 class="list-title" id="list-title">Todos os <b>247</b> aprovados</h2>
+      <h2 class="list-title" id="list-title">Todos os <b>282</b> aprovados</h2>
     </div>
     <div class="controls">
       <input type="search" id="search" placeholder="Buscar nome ou inscrição…">
@@ -403,9 +403,14 @@ window.addEventListener('error', function(e){
     els.footerLink.textContent = m.footer_lbl;
     els.tSol.classList.toggle('active', curso==='soldado');
     els.tOfi.classList.toggle('active', curso==='oficial');
-    // update cards comparativos
+    // update cards comparativos — total + stack sincronizados com DATA/META
     document.querySelectorAll('.cmp-card').forEach(function(c){
       c.classList.toggle('active', c.dataset.curso===curso);
+      var cc = c.dataset.curso;
+      var tot = c.querySelector('.cmp-total');
+      if(tot && tot.firstChild) tot.firstChild.nodeValue = String(DATA[cc].length);
+      var bs = c.querySelectorAll('.cmp-stack b');
+      (META[cc].turmas||[]).forEach(function(t,i){ if(bs[i]) bs[i].textContent = t.n; });
     });
     // URL
     var url = new URL(location);
